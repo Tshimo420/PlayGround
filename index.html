@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="theme-color" content="#101513">
+<title>Mzansi Motor Club — Parking Run</title><link rel="icon" href="data:,">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--ink:#f4f3ea;--muted:#a9b0a7;--lime:#d6ff4f;--orange:#ff704b;--panel:rgba(17,24,21,.88)}*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#101513;color:var(--ink);font-family:'Space Grotesk',sans-serif}button{font:inherit;color:inherit;border:0;cursor:pointer}#game{position:relative;width:100%;height:100%;min-height:480px;background:#9c9b8e;overflow:hidden}canvas{position:absolute;inset:0;width:100%;height:100%;display:block}.topbar{position:absolute;z-index:2;top:0;left:0;right:0;height:74px;padding:14px 26px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(13,19,17,.92),rgba(13,19,17,.05));pointer-events:none}.brand{display:flex;gap:12px;align-items:center}.brandmark{width:39px;height:39px;border:1px solid rgba(214,255,79,.6);display:grid;place-items:center;color:var(--lime);font-size:20px;transform:rotate(-8deg)}.brandname{font-size:13px;font-weight:700;letter-spacing:.13em}.brandname small{display:block;color:#9da79c;font-size:9px;letter-spacing:.23em;margin-top:3px}.server{display:flex;align-items:center;gap:8px;font:10px 'DM Mono',monospace;letter-spacing:.12em;color:#d4ded2}.dot{width:7px;height:7px;background:var(--lime);border-radius:100%;box-shadow:0 0 12px var(--lime)}.hud{position:absolute;z-index:2;top:92px;left:24px;width:210px;display:none}.hud.show{display:block}.tag{color:var(--lime);font:10px 'DM Mono',monospace;letter-spacing:.2em;text-transform:uppercase}.mission{margin:8px 0 15px;font-size:24px;font-weight:700;line-height:1}.stats{display:flex;gap:8px}.stat{background:var(--panel);border:1px solid rgba(255,255,255,.13);padding:9px 12px;min-width:80px;backdrop-filter:blur(8px)}.stat label{display:block;color:#9da79c;font:9px 'DM Mono',monospace;letter-spacing:.14em}.stat b{display:block;font:17px 'DM Mono',monospace;margin-top:5px}.stat b em{font-size:10px;color:#aab1a7;font-style:normal}.side-card{position:absolute;z-index:2;right:24px;top:94px;width:210px;background:var(--panel);border:1px solid rgba(255,255,255,.13);padding:14px 15px;backdrop-filter:blur(8px);display:none}.side-card.show{display:block}.side-card h3{margin:0 0 10px;font-size:11px;letter-spacing:.12em}.side-card p{margin:0;color:#aab1a7;font-size:11px;line-height:1.55}.goal-line{display:flex;align-items:center;gap:8px;color:var(--lime);font:10px 'DM Mono',monospace;margin-top:12px}.goal-line i{width:8px;height:8px;border:1px solid var(--lime);display:inline-block;transform:rotate(45deg)}.home,.result{position:absolute;z-index:4;inset:0;display:grid;place-items:center;background:linear-gradient(90deg,rgba(11,17,15,.88) 0%,rgba(11,17,15,.65) 43%,rgba(11,17,15,.04) 100%);transition:opacity .25s}.home.hidden,.result.hidden{opacity:0;pointer-events:none}.hero{width:min(560px,90vw);margin-left:min(5vw,70px);margin-top:42px}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--lime);font:10px 'DM Mono',monospace;letter-spacing:.22em;text-transform:uppercase}.eyebrow:before{content:'';width:26px;height:1px;background:var(--lime)}h1{font-size:clamp(48px,7vw,88px);line-height:.86;letter-spacing:-.075em;margin:19px 0 18px;font-weight:700}h1 span{color:var(--lime)}.dek{max-width:380px;color:#c3cbc0;font-size:14px;line-height:1.6;margin:0 0 25px}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}.chip{font:9px 'DM Mono',monospace;letter-spacing:.1em;color:#d1d8cd;border:1px solid rgba(255,255,255,.2);padding:7px 9px;background:rgba(255,255,255,.04)}.play{background:var(--lime);color:#141912;padding:15px 20px;min-width:190px;text-align:left;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;letter-spacing:.04em;transition:transform .15s,background .15s}.play:hover{transform:translateY(-2px);background:#e5ff83}.play span{font-size:20px}.subnote{margin-top:13px;color:#859087;font:9px 'DM Mono',monospace;letter-spacing:.12em}.result{background:rgba(10,15,13,.67);backdrop-filter:blur(5px)}.resultbox{width:min(420px,90vw);padding:32px;background:#151d19;border:1px solid rgba(214,255,79,.42);box-shadow:0 20px 80px #0008;text-align:center}.resultbox .eyebrow{justify-content:center}.resultbox h2{font-size:40px;line-height:1;margin:15px 0 10px;letter-spacing:-.05em}.resultbox p{color:#aab1a7;font-size:13px;line-height:1.6}.resultbox .play{margin:22px auto 0;text-align:left}.controls{position:absolute;z-index:3;left:25px;bottom:22px;display:none;align-items:center;gap:14px;color:#d8dfd5;font:9px 'DM Mono',monospace;letter-spacing:.08em;text-shadow:0 1px 5px #000}.controls.show{display:flex}.key{display:inline-grid;place-items:center;min-width:23px;height:22px;border:1px solid #ffffff55;background:#18211dcc;border-radius:3px;margin-right:3px;font-size:11px}.controlgroup{display:flex;align-items:center;gap:4px}.mobile-controls{display:none;position:absolute;z-index:3;bottom:max(15px,env(safe-area-inset-bottom));left:0;right:0;justify-content:space-between;padding:0 18px;pointer-events:none}.pad{display:grid;grid-template-columns:repeat(3,43px);grid-template-rows:repeat(2,43px);gap:4px;pointer-events:auto}.pedals{display:flex;gap:8px;align-items:end;pointer-events:auto}.touch{width:48px;height:48px;border:1px solid #ffffff66;background:#15201bd9;border-radius:8px;color:white;font-size:19px;touch-action:none;user-select:none}.touch:active,.touch.down{background:#d6ff4f;color:#172014}.touch.accel{height:92px;background:#d6ff4f;color:#172014;font-size:12px;font-weight:700}.touch.brake{height:70px;font-size:10px}.pad .empty{visibility:hidden}.toast{position:absolute;z-index:3;left:50%;top:80px;transform:translateX(-50%);background:#111b17e8;border:1px solid #ffffff33;padding:9px 15px;font:10px 'DM Mono',monospace;letter-spacing:.08em;opacity:0;transition:opacity .2s;pointer-events:none}.toast.show{opacity:1}.restart{position:absolute;z-index:3;right:25px;bottom:22px;display:none;background:var(--panel);border:1px solid #ffffff33;padding:10px 12px;font:10px 'DM Mono',monospace;letter-spacing:.1em}.restart.show{display:block}@media(max-width:700px){.topbar{padding:12px 16px;height:65px}.server{font-size:8px}.hud{top:78px;left:14px;width:auto}.mission{font-size:19px}.side-card{top:78px;right:12px;width:155px;padding:10px}.side-card p{font-size:10px}.side-card h3{font-size:10px}.stat{padding:7px 9px;min-width:70px}.stat b{font-size:14px}.hero{margin:110px 0 0;width:86vw}.home{background:linear-gradient(90deg,rgba(11,17,15,.86),rgba(11,17,15,.46))}h1{font-size:clamp(48px,13vw,74px)}.dek{font-size:12px;max-width:330px}.chips{margin-bottom:20px}.controls{display:none!important}.mobile-controls.show{display:flex}.restart{right:13px;bottom:auto;top:17px}.resultbox{padding:24px}.resultbox h2{font-size:34px}}@media(max-height:650px) and (min-width:701px){.hero{margin-top:70px}.hud{top:78px}.side-card{top:78px}.controls{bottom:12px}}
+</style>
+</head>
+<body><main id="game"><canvas id="scene" aria-label="Top down parking game"></canvas>
+<header class="topbar"><div class="brand"><div class="brandmark">✳</div><div class="brandname">MZANSI MOTOR CLUB<small>JOHANNESBURG • SOUTH AFRICA</small></div></div><div class="server"><i class="dot"></i> JOBURG LOBBY <span style="color:#7d8b7e">/</span> 12 ONLINE</div></header>
+<section class="hud" id="hud"><div class="tag">PARKING RUN 01 / JOBURG</div><div class="mission">Find your bay.</div><div class="stats"><div class="stat"><label>TIME LEFT</label><b id="time">90<em>s</em></b></div><div class="stat"><label>SCORE</label><b id="score">0000</b></div></div></section>
+<aside class="side-card" id="side"><h3>THE CHALLENGE</h3><p>Slide into the glowing bay without bumping the neighbours. Keep it smooth, hey.</p><div class="goal-line"><i></i> BAY 08 · REVERSE IN</div></aside>
+<div class="toast" id="toast">NICE AND EASY</div>
+<section class="home" id="home"><div class="hero"><div class="eyebrow">A little Mzansi motoring</div><h1>JOBURG<br><span>PARKING</span><br>CLUB.</h1><p class="dek">Pull into the city, find your spot, and park like you own the place. One tight bay, one very busy car park. Sharp sharp!</p><div class="chips"><span class="chip">🇿🇦 SOUTH AFRICA EDITION</span><span class="chip">LEFT-HAND DRIVE</span><span class="chip">SOLO LOBBY · AI TRAFFIC</span></div><button class="play" id="start">START YOUR ENGINE <span>↗</span></button><div class="subnote">WASD / ARROWS TO DRIVE &nbsp;·&nbsp; SPACE TO HANDBRAKE</div></div></section>
+<section class="result hidden" id="result"><div class="resultbox"><div class="eyebrow" id="resultTag">PARKING COMPLETE</div><h2 id="resultTitle">Sharp sharp!</h2><p id="resultText">You slid into your bay like a local. No scratches, no stress.</p><button class="play" id="again">RUN IT BACK <span>↗</span></button></div></section>
+<div class="controls" id="controls"><div class="controlgroup"><span><b class="key">↑</b><b class="key">↓</b>THROTTLE / REVERSE</span></div><div class="controlgroup"><span><b class="key">←</b><b class="key">→</b>STEER</span></div><div class="controlgroup"><b class="key">SPACE</b>HANDBRAKE</div></div>
+<div class="mobile-controls" id="mobile"><div class="pad"><button class="touch empty"></button><button class="touch" data-key="up">▲</button><button class="touch empty"></button><button class="touch" data-key="left">◀</button><button class="touch" data-key="down">▼</button><button class="touch" data-key="right">▶</button></div><div class="pedals"><button class="touch brake" data-key="brake">BRAKE</button><button class="touch accel" data-key="accel">GO</button></div></div>
+<button class="restart" id="restart">↻ &nbsp;RESTART RUN</button>
+</main>
+<script>
+(()=>{'use strict';
+const canvas=document.getElementById('scene'),ctx=canvas.getContext('2d');const W=1200,H=800;
+let cw=0,ch=0,dpr=1,scale=1,ox=0,oy=0,last=0,active=false,ended=false,elapsed=0,score=0,damage=0,toastTimer=0;
+const keys={up:false,down:false,left:false,right:false,brake:false};
+const player={x:610,y:395,a:-Math.PI/2,v:0};const goal={x:880,y:190,a:Math.PI/2};const slotW=100,slotH=148;
+const parked=[{x:150,y:174,c:'#dd6b3f',a:-1.58},{x:250,y:174,c:'#3d7580',a:-1.57},{x:350,y:174,c:'#d3bd85',a:-1.55},{x:450,y:174,c:'#564c69',a:-1.6},{x:550,y:174,c:'#e0e0d2',a:-1.54},{x:650,y:174,c:'#398364',a:-1.58},{x:750,y:174,c:'#b94e3d',a:-1.56},{x:950,y:174,c:'#e5b842',a:-1.55},{x:1050,y:174,c:'#557b9b',a:-1.59},{x:150,y:555,c:'#536f8b',a:-1.56},{x:250,y:555,c:'#d4b852',a:-1.57},{x:350,y:555,c:'#ba593d',a:-1.6},{x:450,y:555,c:'#e1e3d8',a:-1.55},{x:550,y:555,c:'#4e8770',a:-1.57},{x:650,y:555,c:'#765c8f',a:-1.56},{x:750,y:555,c:'#d07145',a:-1.57},{x:850,y:555,c:'#507781',a:-1.56},{x:950,y:555,c:'#d3d5ca',a:-1.56},{x:1050,y:555,c:'#b54f44',a:-1.56}];
+function resize(){const r=canvas.getBoundingClientRect();dpr=Math.min(devicePixelRatio||1,2);cw=r.width;ch=r.height;canvas.width=Math.floor(cw*dpr);canvas.height=Math.floor(ch*dpr);scale=Math.max(cw/W,ch/H);ox=(cw-W*scale)/2;oy=(ch-H*scale)/2;}
+window.addEventListener('resize',resize);resize();
+function rounded(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
+function drawLot(){
+ ctx.fillStyle='#b9b7aa';ctx.fillRect(0,0,W,H);
+ // subtle asphalt grain
+ for(let i=0;i<180;i++){let x=(i*173)%W,y=(i*293)%H;ctx.fillStyle=i%2?'#ffffff09':'#34392f0b';ctx.fillRect(x,y,2,2)}
+ // road & footpath on left, street at bottom
+ ctx.fillStyle='#414745';ctx.fillRect(0,0,85,H);ctx.fillRect(0,690,W,110);
+ ctx.fillStyle='#d5c9a1';ctx.fillRect(85,0,13,H);ctx.fillRect(0,678,W,12);
+ ctx.fillStyle='#d6d2c4';ctx.fillRect(98,0,20,H);ctx.fillRect(0,652,W,26);
+ // road dashed lines
+ ctx.strokeStyle='#d8d1a1';ctx.lineWidth=3;ctx.setLineDash([26,23]);ctx.beginPath();ctx.moveTo(42,0);ctx.lineTo(42,H);ctx.moveTo(0,748);ctx.lineTo(W,748);ctx.stroke();ctx.setLineDash([]);
+ // asphalt access lane
+ ctx.fillStyle='#747a70';ctx.fillRect(118,285,1082,190);
+ // faint lanes
+ ctx.strokeStyle='#ded9b855';ctx.lineWidth=2;ctx.setLineDash([22,18]);ctx.beginPath();ctx.moveTo(120,380);ctx.lineTo(1200,380);ctx.stroke();ctx.setLineDash([]);
+ // curb borders
+ ctx.fillStyle='#ded8c4';ctx.fillRect(118,278,1082,7);ctx.fillRect(118,475,1082,7);
+ // bay parking rows, painted slots
+ for(let i=0;i<10;i++){let x=120+i*100+10;
+   if(!(i===7)){ctx.strokeStyle='#f6f1db';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,112);ctx.lineTo(x,260);ctx.stroke();}
+   ctx.strokeStyle='#f6f1db';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,495);ctx.lineTo(x,642);ctx.stroke();
+ }
+ // row edges
+ ctx.strokeStyle='#f6f1db';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(120,112);ctx.lineTo(1120,112);ctx.moveTo(120,260);ctx.lineTo(1120,260);ctx.moveTo(120,495);ctx.lineTo(1120,495);ctx.moveTo(120,642);ctx.lineTo(1120,642);ctx.stroke();
+ // sidewalk lower outside
+ ctx.fillStyle='#a5a697';ctx.fillRect(120,650,1080,25);
+ // target bay glow pulse
+ const pulse=.5+.5*Math.sin(elapsed*3.1);ctx.save();ctx.globalAlpha=.18+pulse*.13;ctx.fillStyle='#d6ff4f';ctx.fillRect(830,112,100,148);ctx.restore();
+ ctx.strokeStyle='#d6ff4f';ctx.lineWidth=3;ctx.setLineDash([8,6]);ctx.strokeRect(830,112,100,148);ctx.setLineDash([]);
+ ctx.fillStyle='#27321f';ctx.font='bold 11px monospace';ctx.textAlign='center';ctx.fillText('08',880,124);ctx.textAlign='left';
+ // lot labeling and decorative trees / lights
+ ctx.fillStyle='#435348';ctx.font='bold 17px sans-serif';ctx.fillText('BRAAMFONTEIN  /  CITY PARK',390,42);
+ ctx.fillStyle='#73776c';ctx.font='11px monospace';ctx.fillText('PAY & PARK  •  LEVEL 01',390,61);
+ for(const [x,y] of [[112,80],[112,665],[1160,80],[1160,665]]){ctx.fillStyle='#475c45';ctx.beginPath();ctx.arc(x,y,20,0,Math.PI*2);ctx.fill();ctx.fillStyle='#687b59';ctx.beginPath();ctx.arc(x-4,y-5,13,0,Math.PI*2);ctx.fill();ctx.fillStyle='#9a8d69';ctx.fillRect(x-3,y+14,6,9)}
+ // access gate booth
+ rounded(102,692,66,34,4,'#e4dfce','#8a887d');ctx.fillStyle='#dc6044';ctx.fillRect(148,707,42,5);ctx.fillStyle='#34423a';ctx.font='9px monospace';ctx.fillText('IN',110,713);
+ // city texture blocks outside lot
+ ctx.fillStyle='#c1bdac';ctx.fillRect(0,0,82,800);for(let y=10;y<790;y+=45){ctx.fillStyle=y%2?'#9fa292':'#c7c2ae';ctx.fillRect(5,y,30,27);ctx.fillStyle='#69736a';ctx.fillRect(12,y+7,7,9);ctx.fillRect(23,y+7,7,9)}
+ // street markings bottom
+ ctx.fillStyle='#e7e1ca';ctx.font='11px monospace';ctx.save();ctx.translate(380,752);ctx.rotate(-Math.PI/2);ctx.fillText('BRAAMFONTEIN',0,0);ctx.restore();
+}
+function drawCar(x,y,a,color,isPlayer=false){ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.shadowColor='#17201b66';ctx.shadowBlur=isPlayer?11:5;ctx.shadowOffsetY=3;
+ // tyres
+ ctx.fillStyle='#202522';for(const ty of [-22,22])for(const tx of [-13,13])rounded(tx-4,ty-7,8,14,2,'#242925');
+ rounded(-18,-35,36,70,10,color,'#18211e');ctx.shadowColor='transparent';
+ // body glint and windows
+ rounded(-14,-24,28,21,5,'#273b3b','#59716c');rounded(-14,4,28,18,4,'#263a3a','#59716c');
+ ctx.fillStyle='#9bb3a7';ctx.globalAlpha=.75;ctx.fillRect(-12,-21,24,2);ctx.globalAlpha=1;
+ // bonnet detail, lamps
+ rounded(-13,-32,26,6,2,color==='#d6ff4f'?'#efffaf':'#ffffff55');ctx.fillStyle='#f7e5a5';ctx.fillRect(-14,-33,7,3);ctx.fillRect(7,-33,7,3);ctx.fillStyle='#e85d45';ctx.fillRect(-13,31,7,3);ctx.fillRect(6,31,7,3);
+ if(isPlayer){ctx.strokeStyle='#f0ffe0';ctx.lineWidth=1.5;ctx.strokeRect(-18,-35,36,70);ctx.fillStyle='#fff4c2';ctx.font='bold 6px monospace';ctx.textAlign='center';ctx.fillText('GP 24',0,1)}else{ctx.fillStyle='#f5ecd0';ctx.fillRect(-9,27,18,4);ctx.fillStyle='#28312c';ctx.font='4px monospace';ctx.textAlign='center';ctx.fillText('GP 24',0,30)}
+ ctx.restore();}
+function render(){ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cw,ch);ctx.fillStyle='#262e29';ctx.fillRect(0,0,cw,ch);ctx.setTransform(dpr*scale,0,0,dpr*scale,dpr*ox,dpr*oy);drawLot();for(const car of parked)drawCar(car.x,car.y,car.a,car.c);drawCar(player.x,player.y,player.a,'#d6ff4f',true);
+ // parking guidance marker
+ if(active&&!ended){ctx.save();ctx.globalAlpha=.8;ctx.strokeStyle='#d6ff4f';ctx.lineWidth=2;ctx.beginPath();ctx.arc(goal.x,goal.y,48+Math.sin(elapsed*4)*4,0,Math.PI*2);ctx.stroke();ctx.restore()}
+}
+function toast(text){const t=document.getElementById('toast');t.textContent=text;t.classList.add('show');toastTimer=1.5}
+function reset(){player.x=610;player.y=395;player.a=-Math.PI/2;player.v=0;elapsed=0;score=0;damage=0;ended=false;active=true;document.getElementById('time').innerHTML='90<em>s</em>';document.getElementById('score').textContent='0000';document.getElementById('result').classList.add('hidden');document.getElementById('home').classList.add('hidden');document.getElementById('hud').classList.add('show');document.getElementById('side').classList.add('show');document.getElementById('controls').classList.add('show');document.getElementById('mobile').classList.add('show');document.getElementById('restart').classList.add('show');Object.keys(keys).forEach(k=>keys[k]=false);last=performance.now();}
+function finish(win){if(ended)return;ended=true;active=false;document.getElementById('resultTag').textContent=win?'PARKING COMPLETE':'TIME UP';document.getElementById('resultTitle').textContent=win?'Sharp sharp!':'Run it back.';document.getElementById('resultText').textContent=win?`You slid into your bay like a local. Final score: ${String(score).padStart(4,'0')} points. No scratches, no stress.`:'That spot is still waiting for you. Take a breath and give it another go.';document.getElementById('result').classList.remove('hidden')}
+function clamp(v,min,max){return Math.max(min,Math.min(max,v))}
+function update(dt){if(!active)return;elapsed+=dt;const throttle=keys.up||keys.accel,reverse=keys.down||keys.brake;
+ if(throttle)player.v+=210*dt;if(reverse)player.v-=keys.brake?290*dt:140*dt;const drag=keys.brake?3.9:1.25;player.v*=Math.max(0,1-drag*dt);player.v=clamp(player.v,-105,190);
+ const steer=(keys.left?-1:0)+(keys.right?1:0);if(Math.abs(player.v)>3){player.a+=steer*1.95*dt*Math.sign(player.v)*Math.min(1,Math.abs(player.v)/55)}
+ const oldx=player.x,oldy=player.y;player.x+=Math.cos(player.a)*player.v*dt;player.y+=Math.sin(player.a)*player.v*dt;
+ let hit=false;for(const c of parked){if(Math.hypot(player.x-c.x,player.y-c.y)<49){hit=true;break}}
+ if(player.x<125||player.x>1175||player.y<72||player.y>670)hit=true;
+ if(hit){player.x=oldx;player.y=oldy;player.v*=-.23;damage++;score=Math.max(0,score-40);if(damage%3===0)toast('EISH! WATCH THE PAINT');}
+ else if(Math.abs(player.v)>20)score+=Math.floor(dt*(keys.brake?2:5));
+ document.getElementById('score').textContent=String(score).padStart(4,'0');const left=Math.max(0,Math.ceil(90-elapsed));document.getElementById('time').innerHTML=left+'<em>s</em>';
+ const dx=player.x-goal.x,dy=player.y-goal.y;let da=Math.atan2(Math.sin(player.a-goal.a),Math.cos(player.a-goal.a));if(Math.hypot(dx,dy)<32&&Math.abs(da)<.38&&Math.abs(player.v)<18){score+=Math.max(0,left)*20;document.getElementById('score').textContent=String(score).padStart(4,'0');finish(true)}else if(elapsed>=90)finish(false);
+ if(toastTimer>0){toastTimer-=dt;if(toastTimer<=0)document.getElementById('toast').classList.remove('show')}
+}
+function loop(now){const dt=Math.min(.04,(now-last)/1000||0);last=now;update(dt);render();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+document.getElementById('start').addEventListener('click',reset);document.getElementById('again').addEventListener('click',reset);document.getElementById('restart').addEventListener('click',reset);
+const map={ArrowUp:'up',w:'up',W:'up',ArrowDown:'down',s:'down',S:'down',ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right', ' ':'brake'};
+window.addEventListener('keydown',e=>{if(map[e.key]){e.preventDefault();keys[map[e.key]]=true}});window.addEventListener('keyup',e=>{if(map[e.key]){e.preventDefault();keys[map[e.key]]=false}});window.addEventListener('blur',()=>Object.keys(keys).forEach(k=>keys[k]=false));
+document.querySelectorAll('.touch[data-key]').forEach(b=>{const key=b.dataset.key;const down=e=>{e.preventDefault();keys[key]=true;b.classList.add('down');try{b.setPointerCapture(e.pointerId)}catch(_){}};const up=e=>{e.preventDefault();keys[key]=false;b.classList.remove('down')};b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);b.addEventListener('pointercancel',up);b.addEventListener('lostpointercapture',up)});
+})();
+</script></body></html>
